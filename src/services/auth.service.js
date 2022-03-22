@@ -1,14 +1,5 @@
-import { Loading, Dialog } from "quasar";
-import { http } from "./http";
-import { userKey } from "../shared/global";
-const token = !!sessionStorage.getItem(userKey)
-  ? sessionStorage.getItem(userKey)
-  : "";
-const tokenBearer = {
-  headers: {
-    Authorization: "Bearer " + token,
-  },
-};
+import { Loading } from "quasar";
+import { http, tokenBearer } from "./http";
 
 const _login = async (payload) => {
   Loading.show();
@@ -29,7 +20,7 @@ const _getProfile = async (payload) => {
   let profile = {};
   try {
     profile = await http
-      .get("/profile", tokenBearer)
+      .get("/profile", tokenBearer())
       .then((response) => response)
       .catch((error) => error);
   } finally {

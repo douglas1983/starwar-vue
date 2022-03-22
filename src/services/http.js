@@ -6,6 +6,18 @@ import {
   // token,
   errorHandler,
 } from "./config";
+import { userKey } from "../shared/global";
+
+export function tokenBearer() {
+  const token = !!sessionStorage.getItem(userKey)
+    ? sessionStorage.getItem(userKey)
+    : "";
+  return {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+}
 
 export const http = axios.create({
   baseURL: "https://swapi-fastprp.herokuapp.com",

@@ -223,6 +223,7 @@ export default {
 
           const login = await this.login(user);
           if (login.access_token) {
+            await this.getUserLogin();
             this.clearLoginData();
             this.$router.push({ name: "home" });
           } else {

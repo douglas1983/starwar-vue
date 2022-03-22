@@ -1,15 +1,5 @@
 import { Loading, Dialog } from "quasar";
-import { http } from "./http";
-
-import { userKey } from "../shared/global";
-const token = !!sessionStorage.getItem(userKey)
-  ? sessionStorage.getItem(userKey)
-  : "";
-const tokenBearer = {
-  headers: {
-    Authorization: "Bearer " + token,
-  },
-};
+import { http, tokenBearer } from "./http";
 
 const _create = async (payload) => {
   Loading.show();
@@ -31,7 +21,7 @@ const _updatepassword = async (payload) => {
   let user = {};
   try {
     user = await http
-      .post(`/user/${id}/password`, data, tokenBearer)
+      .post(`/user/${id}/password`, data, tokenBearer())
       .then((response) => response)
       .catch((error) => error);
   } finally {
